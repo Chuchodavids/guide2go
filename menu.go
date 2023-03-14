@@ -1,225 +1,225 @@
 package main
 
 import (
-  "fmt"
+	"fmt"
 )
 
 func (e *Entry) headline() {
 
-  fmt.Println()
-  fmt.Println(e.Value)
+	fmt.Println()
+	fmt.Println(e.Value)
 
-  for i := 0; i < len(e.Value); i++ {
-    fmt.Print("-")
-  }
-  fmt.Println()
+	for i := 0; i < len(e.Value); i++ {
+		fmt.Print("-")
+	}
+	fmt.Println()
 
 }
 
 func (e *Entry) account() {
 
-  var username, password string
+	var username, password string
 
-  e.headline()
+	e.headline()
 
-  fmt.Print(fmt.Sprintf("%s: ", getMsg(0100)))
-  fmt.Scanln(&username)
+	fmt.Print(fmt.Sprintf("%s: ", getMsg(0100)))
+	fmt.Scanln(&username)
 
-  fmt.Print(fmt.Sprintf("%s: ", getMsg(0101)))
-  fmt.Scanln(&password)
+	fmt.Print(fmt.Sprintf("%s: ", getMsg(0101)))
+	fmt.Scanln(&password)
 
-  Config.Account.Username = username
-  Config.Account.Password = SHA1(password)
+	Config.Account.Username = username
+	Config.Account.Password = SHA1(password)
 
-  Config.Save()
+	Config.Save()
 
-  return
+	return
 }
 
 func (e *Entry) addLineup(sd *SD) (err error) {
 
-  var index, selection int
-  var postalcode string
-  var menu Menu
-  var entry Entry
+	var index, selection int
+	var postalcode string
+	var menu Menu
+	var entry Entry
 
-  menu.Entry = make(map[int]Entry)
-  menu.Select = getMsg(0201)
-  menu.Headline = e.Value
+	menu.Entry = make(map[int]Entry)
+	menu.Select = getMsg(0201)
+	menu.Headline = e.Value
 
-  err = sd.Countries()
-  if err != nil {
-    return
-  }
+	err = sd.Countries()
+	if err != nil {
+		return
+	}
 
-  // Cancel
-  entry.Key = index
-  entry.Value = getMsg(0200)
-  menu.Entry[index] = entry
+	// Cancel
+	entry.Key = index
+	entry.Value = getMsg(0200)
+	menu.Entry[index] = entry
 
-  for _, lineup := range sd.Resp.Countries.NorthAmerica {
+	for _, lineup := range sd.Resp.Countries.NorthAmerica {
 
-    index++
-    entry.Key = index
-    entry.Value = fmt.Sprintf("%s [%s]", lineup.FullName, lineup.PostalCodeExample)
-    entry.Country = lineup.FullName
-    entry.Postalcode = lineup.PostalCode
-    entry.ShortName = lineup.ShortName
-    menu.Entry[index] = entry
+		index++
+		entry.Key = index
+		entry.Value = fmt.Sprintf("%s [%s]", lineup.FullName, lineup.PostalCodeExample)
+		entry.Country = lineup.FullName
+		entry.Postalcode = lineup.PostalCode
+		entry.ShortName = lineup.ShortName
+		menu.Entry[index] = entry
 
-  }
+	}
 
-  for _, lineup := range sd.Resp.Countries.Europe {
+	for _, lineup := range sd.Resp.Countries.Europe {
 
-    index++
-    entry.Key = index
-    entry.Value = fmt.Sprintf("%s [%s]", lineup.FullName, lineup.PostalCodeExample)
-    entry.Country = lineup.FullName
-    entry.Postalcode = lineup.PostalCode
-    entry.ShortName = lineup.ShortName
-    menu.Entry[index] = entry
+		index++
+		entry.Key = index
+		entry.Value = fmt.Sprintf("%s [%s]", lineup.FullName, lineup.PostalCodeExample)
+		entry.Country = lineup.FullName
+		entry.Postalcode = lineup.PostalCode
+		entry.ShortName = lineup.ShortName
+		menu.Entry[index] = entry
 
-  }
+	}
 
-  for _, lineup := range sd.Resp.Countries.LatinAmerica {
+	for _, lineup := range sd.Resp.Countries.LatinAmerica {
 
-    index++
-    entry.Key = index
-    entry.Value = fmt.Sprintf("%s [%s]", lineup.FullName, lineup.PostalCodeExample)
-    entry.Country = lineup.FullName
-    entry.Postalcode = lineup.PostalCode
-    entry.ShortName = lineup.ShortName
-    menu.Entry[index] = entry
+		index++
+		entry.Key = index
+		entry.Value = fmt.Sprintf("%s [%s]", lineup.FullName, lineup.PostalCodeExample)
+		entry.Country = lineup.FullName
+		entry.Postalcode = lineup.PostalCode
+		entry.ShortName = lineup.ShortName
+		menu.Entry[index] = entry
 
-  }
+	}
 
-  for _, lineup := range sd.Resp.Countries.Caribbean {
+	for _, lineup := range sd.Resp.Countries.Caribbean {
 
-    index++
-    entry.Key = index
-    entry.Value = fmt.Sprintf("%s [%s]", lineup.FullName, lineup.PostalCodeExample)
-    entry.Country = lineup.FullName
-    entry.Postalcode = lineup.PostalCode
-    entry.ShortName = lineup.ShortName
-    menu.Entry[index] = entry
+		index++
+		entry.Key = index
+		entry.Value = fmt.Sprintf("%s [%s]", lineup.FullName, lineup.PostalCodeExample)
+		entry.Country = lineup.FullName
+		entry.Postalcode = lineup.PostalCode
+		entry.ShortName = lineup.ShortName
+		menu.Entry[index] = entry
 
-  }
+	}
 
-  selection = menu.Show()
+	selection = menu.Show()
 
-  switch selection {
+	switch selection {
 
-  case 0:
-    return
-  default:
-    entry = menu.Entry[selection]
+	case 0:
+		return
+	default:
+		entry = menu.Entry[selection]
 
-  }
+	}
 
-  fmt.Println(entry.Value)
+	fmt.Println(entry.Value)
 
-  for {
+	for {
 
-    fmt.Print(fmt.Sprintf("%s: ", getMsg(0202)))
-    fmt.Scanln(&postalcode)
+		fmt.Print(fmt.Sprintf("%s: ", getMsg(0202)))
+		fmt.Scanln(&postalcode)
 
-    sd.Req.Parameter = fmt.Sprintf("?country=%s&postalcode=%s", entry.ShortName, postalcode)
+		sd.Req.Parameter = fmt.Sprintf("?country=%s&postalcode=%s", entry.ShortName, postalcode)
 
-    err = sd.Headends()
+		err = sd.Headends()
 
-    if err == nil {
-      break
-    }
+		if err == nil {
+			break
+		}
 
-  }
+	}
 
-  // Select Linup
-  index = 0
+	// Select Linup
+	index = 0
 
-  menu.Entry = make(map[int]Entry)
-  menu.Select = getMsg(0203)
+	menu.Entry = make(map[int]Entry)
+	menu.Select = getMsg(0203)
 
-  // Cancel
-  entry.Key = index
-  entry.Value = getMsg(0200)
-  menu.Entry[index] = entry
+	// Cancel
+	entry.Key = index
+	entry.Value = getMsg(0200)
+	menu.Entry[index] = entry
 
-  for _, slice := range sd.Resp.Headend {
+	for _, slice := range sd.Resp.Headend {
 
-    for _, lineup := range slice.Lineups {
+		for _, lineup := range slice.Lineups {
 
-      index++
-      entry.Key = index
-      entry.Value = fmt.Sprintf("%s [%s]", lineup.Name, lineup.Lineup)
-      entry.Lineup = lineup.Lineup
+			index++
+			entry.Key = index
+			entry.Value = fmt.Sprintf("%s [%s]", lineup.Name, lineup.Lineup)
+			entry.Lineup = lineup.Lineup
 
-      menu.Entry[index] = entry
+			menu.Entry[index] = entry
 
-    }
+		}
 
-  }
+	}
 
-  selection = menu.Show()
+	selection = menu.Show()
 
-  switch selection {
+	switch selection {
 
-  case 0:
-    return
-  default:
-    entry = menu.Entry[selection]
+	case 0:
+		return
+	default:
+		entry = menu.Entry[selection]
 
-  }
+	}
 
-  sd.Req.Parameter = fmt.Sprintf("/%s", entry.Lineup)
-  sd.Req.Type = "PUT"
+	sd.Req.Parameter = fmt.Sprintf("/%s", entry.Lineup)
+	sd.Req.Type = "PUT"
 
-  err = sd.Lineups()
+	err = sd.Lineups()
 
-  return
+	return
 }
 
 func (e *Entry) removeLineup(sd *SD) (err error) {
 
-  var index, selection int
-  var menu Menu
-  var entry Entry
+	var index, selection int
+	var menu Menu
+	var entry Entry
 
-  menu.Entry = make(map[int]Entry)
-  menu.Select = getMsg(0204)
-  menu.Headline = e.Value
+	menu.Entry = make(map[int]Entry)
+	menu.Select = getMsg(0204)
+	menu.Headline = e.Value
 
-  // Cancel
-  entry.Key = index
-  entry.Value = getMsg(0200)
-  menu.Entry[index] = entry
+	// Cancel
+	entry.Key = index
+	entry.Value = getMsg(0200)
+	menu.Entry[index] = entry
 
-  for _, lineup := range sd.Resp.Status.Lineups {
+	for _, lineup := range sd.Resp.Status.Lineups {
 
-    index++
-    entry.Key = index
-    entry.Value = fmt.Sprintf("%s [%s]", lineup.Name, lineup.Lineup)
-    entry.Lineup = lineup.Lineup
+		index++
+		entry.Key = index
+		entry.Value = fmt.Sprintf("%s [%s]", lineup.Name, lineup.Lineup)
+		entry.Lineup = lineup.Lineup
 
-    menu.Entry[index] = entry
+		menu.Entry[index] = entry
 
-  }
+	}
 
-  selection = menu.Show()
+	selection = menu.Show()
 
-  switch selection {
+	switch selection {
 
-  case 0:
-    return
+	case 0:
+		return
 
-  default:
-    entry = menu.Entry[selection]
+	default:
+		entry = menu.Entry[selection]
 
-  }
+	}
 
-  sd.Req.Parameter = fmt.Sprintf("/%s", entry.Lineup)
-  sd.Req.Type = "DELETE"
+	sd.Req.Parameter = fmt.Sprintf("/%s", entry.Lineup)
+	sd.Req.Type = "DELETE"
 
-  err = sd.Lineups()
+	err = sd.Lineups()
 
-  return
+	return
 }

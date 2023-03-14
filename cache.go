@@ -580,7 +580,7 @@ func GetImageUrl(urlid string, token string, name string) {
 		defer file.Close()
 		req, err := http.Get(url)
 		if err != nil {
-		    return
+			return
 		}
 		defer req.Body.Close()
 		io.Copy(file, req.Body)

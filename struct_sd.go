@@ -232,7 +232,7 @@ type SDProgram struct {
 	} `json:"titles"`
 }
 
-//SDMetadata : Schedules Direct meta data
+// SDMetadata : Schedules Direct meta data
 type SDMetadata struct {
 	Data      []Data `json:"data",required`
 	ProgramID string `json:"programID"`
