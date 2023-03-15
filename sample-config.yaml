@@ -1,6 +1,6 @@
 Account:
-    Username: 
-    Password: 
+    Username: ""
+    Password: ""
 Files:
     Cache: /app/cache.json
     XMLTV: /app/xml.xml
@@ -12,16 +12,16 @@ Options:
     Local Images Cache: true
     Images Path: /app/images
     Proxy Images: false
+    Image Live and New Icons: true
     Hostname: localhost:9090
     Rating:
         Insert rating tag into XML file: true
         Maximum rating entries. 0 for all entries: 1
         Preferred countries. ISO 3166-1 alpha-3 country code. Leave empty for all systems:
-          - USA
+            - USA
         Use country code as rating system: false
     Show download errors from Schedules Direct in the log: true
 Station:
-  - Name: HBO
-    ID: "19548"
-    Lineup: USA-IL67050-X
-# Keep adding channels as needed
+    - Name: HBO
+      ID: "19548"
+      Lineup: USA-IL67050-X

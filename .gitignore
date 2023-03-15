@@ -10,3 +10,5 @@ dev
 a.yaml
 *.iml
 ./config.yaml
+config.yaml
+USA_cache.json
