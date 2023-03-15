@@ -1,0 +1,9 @@
+namespace: guide2go
+resources:
+  - deployment.yaml
+  - service.yaml
+
+configMapGenerator:
+  - name: config-yaml
+    files:
+      - config.yaml

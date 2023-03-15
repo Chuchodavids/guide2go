@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: guide2go
+spec:
+  selector:
+    matchLabels:
+      app: guide2go
+  template:
+    metadata:
+      labels:
+        app: guide2go
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: config-yaml
+      containers:
+      - name: guide2go
+        image: chuchodavids/guide2go:stable
+        volumeMounts:
+          - name: config
+            mountPath: /app
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8112
+  
