@@ -1,0 +1,26 @@
+Account:
+  Username: $username
+  Password: $password
+Files:
+    Cache: /app/USA_cache.json
+    XMLTV: /app/USA.xml
+Options:
+    Poster Aspect: all
+    Schedule Days: 7
+    Subtitle into Description: true
+    Insert credits tag into XML file: true
+    Local Images Cache: true
+    Images Path: /app/images/
+    Proxy Images: false
+    Hostname: 192.168.200.169:8112
+    Rating:
+        Insert rating tag into XML file: false
+        Maximum rating entries. 0 for all entries: 1
+        Preferred countries. ISO 3166-1 alpha-3 country code. Leave empty for all systems:
+          - USA
+        Use country code as rating system: false
+    Show download errors from Schedules Direct in the log: true
+Station:
+  - Name: Fox
+    ID: "20361"
+    Lineup: USA-OTA-60638
