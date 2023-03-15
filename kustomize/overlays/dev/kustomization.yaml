@@ -1,0 +1,7 @@
+namePrefix: dev-
+namespace: dev-guide2go
+commonLabels:
+  env: dev
+  app: dev-guide2go
+resources:
+  - ../../base

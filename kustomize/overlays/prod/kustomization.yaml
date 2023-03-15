@@ -1,0 +1,11 @@
+namePrefix: prod-
+namespace: prod-guide2go
+commonLabels:
+  env: prod
+  app: prod-guide2go
+resources:
+  - ../../base
+images:
+  - name: chuchodavids/guide2go:development
+    newName: chuchodavids/guide2go
+    newTag: stable
