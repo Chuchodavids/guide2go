@@ -1,2 +1,0 @@
-@reboot /app/guide2go --config /data/livetv/config.yaml
-00 * * * * /app/guide2go --config /data/livetv/config.yaml
