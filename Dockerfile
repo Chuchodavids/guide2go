@@ -1,4 +1,6 @@
 FROM golang:alpine3.10 as builder
+LABEL Owner="Chuchodavids"
+LABEL Version="2.0"
 
 RUN mkdir /app
 COPY *.go /app/

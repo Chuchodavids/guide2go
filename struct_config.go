@@ -22,6 +22,7 @@ type config struct {
 		TVShowImages            bool   `yaml:"Local Images Cache"`
 		ImagesPath              string `yaml:"Images Path"`
 		ProxyImages             bool   `yaml:"Proxy Images"`
+		ImageLiveNewIcons       bool   `yaml:"Image Live and New Icons"`
 		Hostname                string `yaml:"Hostname"`
 
 		Rating struct {
