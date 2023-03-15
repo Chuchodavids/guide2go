@@ -43,6 +43,10 @@ func main() {
 	}
 
 	if len(*config) != 0 {
+		_, er := os.Stat(*config)
+		if er != nil {
+			log.Fatal("config file not found")
+		}
 		var sd SD
 		err := sd.Update(*config)
 		if err != nil {
