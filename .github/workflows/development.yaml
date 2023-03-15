@@ -9,10 +9,12 @@ jobs:
   image-build-push-dev:
     runs-on: self-hosted
     steps:
+      - name: Checkout the repo 
+        uses: actions/checkout@v2
       - name: Build the Docker image
-        working-directory: ./${{ env.GITHUB_WORKSPACE }}
+        # working-directory: ./${{ env.GITHUB_WORKSPACE }}
         run: |
           new_tag=$(date +%s)
-          docker build . --tag chuchodavids/guide2go:"$new_tag" --tag chuchodavids/guide2go:development
+          docker build -f Dockerfile --tag chuchodavids/guide2go:"$new_tag" --tag chuchodavids/guide2go:development
           docker push chuchodavids/guide2go:"$new_tag"
           docker push chuchodavids/guide2go:development
