@@ -1,11 +1,11 @@
 namePrefix: prod-
 namespace: prod-guide2go
 commonLabels:
-  env: prod
   app: prod-guide2go
+  env: prod
 resources:
-  - ../../base
+- ../../base
 images:
-  - name: chuchodavids/guide2go:development
-    newName: chuchodavids/guide2go
-    newTag: stable
+- name: chuchodavids/guide2go:stable
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization

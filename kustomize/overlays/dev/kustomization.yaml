@@ -5,3 +5,7 @@ commonLabels:
   app: dev-guide2go
 resources:
   - ../../base
+images:
+- name: chuchodavids/guide2go:development
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization

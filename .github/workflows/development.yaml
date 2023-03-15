@@ -3,7 +3,7 @@ name: Development workflow
 on:
   push:
     branches:
-      - development
+      - test
 
 jobs:
   image-build-push-dev:
@@ -15,6 +15,13 @@ jobs:
         # working-directory: ./${{ env.GITHUB_WORKSPACE }}
         run: |
           new_tag=$(date +%s)
-          docker build . --tag chuchodavids/guide2go:"$new_tag" --tag chuchodavids/guide2go:development
+          echo "${new_tag}" >> $GITHUB_ENV
+          docker build . --tag chuchodavids/guide2go:"$new_tag" --tag chuchodavids/guide2go:test
           docker push chuchodavids/guide2go:"$new_tag"
-          docker push chuchodavids/guide2go:development
+          docker push chuchodavids/guide2go:test
+      - name: change image tag
+        working-directory: kustomize/overlays/dev
+        run: |
+          kustomize edit set image chuchodavids/guide2go:development=chuchodavids/guide2go:${{ env.new_tag }}
+          git commit -m "updated dev tag to ${{ env.new_tag }}" -a
+          git push
