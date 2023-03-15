@@ -8,6 +8,5 @@ guide2go.code-workspace
 dev
 *.xml
 a.yaml
-*.json
 *.iml
-config.yaml
+./config.yaml
