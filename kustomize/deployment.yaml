@@ -17,7 +17,7 @@ spec:
             name: config-yaml
       containers:
       - name: guide2go
-        image: chuchodavids/guide2go:stable
+        image: chuchodavids/guide2go:development
         volumeMounts:
           - name: config
             mountPath: /app
