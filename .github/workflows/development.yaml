@@ -15,7 +15,7 @@ jobs:
         # working-directory: ./${{ env.GITHUB_WORKSPACE }}
         run: |
           new_tag=$(date +%s)
-          echo "${new_tag}" >> $GITHUB_ENV
+          echo "new_tag=${new_tag}" >> $GITHUB_ENV
           docker build . --tag chuchodavids/guide2go:"$new_tag" --tag chuchodavids/guide2go:test
           docker push chuchodavids/guide2go --all-tags
       - name: change image tag
