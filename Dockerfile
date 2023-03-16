@@ -11,7 +11,7 @@ RUN go build -o guide2go
 
 FROM alpine:3.17.2
 ENV USER=docker
-ENV UID=12345
+ENV UID=12344
 ENV GID=23455
 
 RUN addgroup "${USER}" -g "${GID}"
