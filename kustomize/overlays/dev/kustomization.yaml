@@ -8,6 +8,6 @@ resources:
 images:
 - name: chuchodavids/guide2go:development
   newName: chuchodavids/guide2go
-  newTag: "1678998793"
+  newTag: "1679001714"
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
